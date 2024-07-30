@@ -36,28 +36,55 @@ genai.configure(api_key=api_key)
 # Set up logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
-def answer_question_from_pdf(pdf_file, user_question):
+# def answer_question_from_pdf(pdf_file, user_question):
+#     """
+#     Extracts text from a PDF file, splits it into chunks, generates embeddings,
+#     and answers a user question using a question-answering model.
+
+#     Args:
+#     - pdf_file (str): Path to the PDF file.
+#     - user_question (str): Question asked by the user.
+
+#     Returns:
+#     - str: Answer to the user's question. If an error occurs during any step,
+#       an error message is returned instead.
+
+#     Raises:
+#     - FileNotFoundError: If the specified PDF file does not exist.
+#     - Exception: For any other unexpected errors during PDF processing,
+#       text splitting, embedding generation, or question answering.
+
+#     Note:
+#     This function uses Google Generative AI for embeddings and question answering.
+#     """
+#     text = get_text_from_pdf(pdf_file)
+#     if not text:
+#         return "Error: Unable to extract text from the PDF."
+
+#     text_chunks = get_text_chunks(text)
+#     if not text_chunks:
+#         return "Error: Failed to split text into chunks."
+
+#     vector_store = get_vector_store(text_chunks)
+#     if not vector_store:
+#         return "Error: Failed to create vector store."
+
+#     return user_input(user_question, vector_store)
+
+def answer_question_from_pdf(file_stream, user_question):
     """
-    Extracts text from a PDF file, splits it into chunks, generates embeddings,
+    Extracts text from a PDF file-like object, splits it into chunks, generates embeddings,
     and answers a user question using a question-answering model.
 
     Args:
-    - pdf_file (str): Path to the PDF file.
+    - file_stream (io.BytesIO): File-like object for the PDF file.
     - user_question (str): Question asked by the user.
 
     Returns:
     - str: Answer to the user's question. If an error occurs during any step,
       an error message is returned instead.
-
-    Raises:
-    - FileNotFoundError: If the specified PDF file does not exist.
-    - Exception: For any other unexpected errors during PDF processing,
-      text splitting, embedding generation, or question answering.
-
-    Note:
-    This function uses Google Generative AI for embeddings and question answering.
     """
-    text = get_text_from_pdf(pdf_file)
+    text = get_text_from_pdf(file_stream)
     if not text:
         return "Error: Unable to extract text from the PDF."
 
@@ -71,29 +98,51 @@ def answer_question_from_pdf(pdf_file, user_question):
 
     return user_input(user_question, vector_store)
 
-def get_text_from_pdf(pdf_file):
+
+# def get_text_from_pdf(pdf_file):
+#     """
+#     Extracts text content from a PDF file using PyPDF2.
+
+#     Args:
+#     - pdf_file (str): Path to the PDF file.
+
+#     Returns:
+#     - str: Extracted text content from the PDF.
+#       If the file cannot be found or an error occurs during extraction,
+#       an empty string is returned.
+#     """
+#     text = ""
+#     try:
+#         with open(pdf_file, 'rb') as file:
+#             reader = PyPDF2.PdfReader(file)
+#             for page_num, page in enumerate(reader.pages):
+#                 text += page.extract_text()
+#     except FileNotFoundError as e:
+#         logging.error(f"File '{pdf_file}' not found: {e}")
+#     except Exception as e:
+#         logging.error(f"An error occurred while reading the file: {e}")
+#     return text
+
+def get_text_from_pdf(file_stream):
     """
-    Extracts text content from a PDF file using PyPDF2.
+    Extracts text content from a PDF file-like object using PyPDF2.
 
     Args:
-    - pdf_file (str): Path to the PDF file.
+    - file_stream (io.BytesIO): File-like object for the PDF file.
 
     Returns:
     - str: Extracted text content from the PDF.
-      If the file cannot be found or an error occurs during extraction,
-      an empty string is returned.
+      If an error occurs during extraction, an empty string is returned.
     """
     text = ""
     try:
-        with open(pdf_file, 'rb') as file:
-            reader = PyPDF2.PdfReader(file)
-            for page_num, page in enumerate(reader.pages):
-                text += page.extract_text()
-    except FileNotFoundError as e:
-        logging.error(f"File '{pdf_file}' not found: {e}")
+        reader = PyPDF2.PdfReader(file_stream)
+        for page in reader.pages:
+            text += page.extract_text() or ""
     except Exception as e:
         logging.error(f"An error occurred while reading the file: {e}")
     return text
+
 
 def get_text_chunks(text):
     """
@@ -198,13 +247,44 @@ def clean_text(output_text):
     cleaned_text = '\n'.join(line for line in cleaned_text.splitlines() if line.strip())
     return cleaned_text
 
-def answer_question_from_pdf_with_retry(pdf_file, user_question):
+# def answer_question_from_pdf_with_retry(pdf_file, user_question):
+#     """
+#     Handles retries for answering questions from PDF files with exponential backoff
+#     in case of failures.
+
+#     Args:
+#     - pdf_file (str): Path to the PDF file.
+#     - user_question (str): Question asked by the user.
+
+#     Returns:
+#     - str: Answer to the user's question. If an error occurs during any step or
+#       maximum retry attempts are reached, an appropriate error message is returned.
+#     """
+#     retry_attempts = 3
+#     current_attempt = 1
+#     while current_attempt <= retry_attempts:
+#         try:
+#             return answer_question_from_pdf(pdf_file, user_question)
+#         except google.generativeai.types.generation_types.StopCandidateException:
+#             logging.error("An error occurred: StopCandidateException")
+#             return "An error occurred: StopCandidateException"
+#         except Exception as e:
+#             logging.error(f"An error occurred: {e}")
+#             if current_attempt == retry_attempts:
+#                 return "An error occurred: Maximum retry attempts reached"
+#             else:
+#                 wait_time = 2 ** current_attempt  # Exponential backoff
+#                 logging.info(f"Retrying in {wait_time} seconds...")
+#                 time.sleep(wait_time)
+#                 current_attempt += 1
+
+def answer_question_from_pdf_with_retry(file_stream, user_question):
     """
     Handles retries for answering questions from PDF files with exponential backoff
-    in case of failures.
+    in case of failures. This function now accepts a file-like object (BytesIO).
 
     Args:
-    - pdf_file (str): Path to the PDF file.
+    - file_stream (io.BytesIO): File-like object for the PDF file.
     - user_question (str): Question asked by the user.
 
     Returns:
@@ -215,7 +295,9 @@ def answer_question_from_pdf_with_retry(pdf_file, user_question):
     current_attempt = 1
     while current_attempt <= retry_attempts:
         try:
-            return answer_question_from_pdf(pdf_file, user_question)
+            # Ensure the file stream position is reset to the beginning
+            file_stream.seek(0)
+            return answer_question_from_pdf(file_stream, user_question)
         except google.generativeai.types.generation_types.StopCandidateException:
             logging.error("An error occurred: StopCandidateException")
             return "An error occurred: StopCandidateException"
@@ -228,6 +310,7 @@ def answer_question_from_pdf_with_retry(pdf_file, user_question):
                 logging.info(f"Retrying in {wait_time} seconds...")
                 time.sleep(wait_time)
                 current_attempt += 1
+
 
 def main():
     """
