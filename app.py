@@ -2,12 +2,14 @@ from flask import Flask
 import logging
 from dotenv import load_dotenv
 import os
+from flask_cors import CORS
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 # Initialize Flask app
 app = Flask(__name__)
+CORS(app)
 
 # Load environment variables
 load_dotenv()
