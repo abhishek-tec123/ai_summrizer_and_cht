@@ -27,7 +27,8 @@ from doc_cht import document_chat_bp
 app.register_blueprint(document_bp, url_prefix='/document-for-summary')
 app.register_blueprint(audio_bp, url_prefix='/audio')
 app.register_blueprint(video_bp, url_prefix='/video')
-app.register_blueprint(document_chat_bp, url_prefix='/document-chat')
+# app.register_blueprint(document_chat_bp, url_prefix='/document-chat')
+app.register_blueprint(document_chat_bp, url_prefix='/document_chat')
 
 @app.route('/', methods=['GET'])
 def home():
