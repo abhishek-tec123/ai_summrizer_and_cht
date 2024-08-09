@@ -322,7 +322,7 @@ document_chat_bp = Blueprint('document_chat', __name__)
 uploaded_files = {}
 
 # Expiration time for UUIDs (e.g., 5 minutes)
-EXPIRATION_TIME = timedelta(minutes=5)
+EXPIRATION_TIME = timedelta(minutes=30)
 
 # Configure logging to print to the terminal
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
