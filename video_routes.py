@@ -172,7 +172,7 @@ def get_transcript_from_video(video_buffer, original_filename):
         # Print the first 1000 bytes of the video buffer (or less if the buffer is smaller)
         video_buffer.seek(0)  # Ensure we are at the beginning of the buffer
         preview_data = video_buffer.read(1000)
-        print(f"Video buffer preview: {preview_data[:100]}...")  # Print the first 100 bytes of the preview data
+        # print(f"Video buffer preview: {preview_data[:100]}...")  # Print the first 100 bytes of the preview data
         
         # Use a temporary file to store the video with the correct extension
         _, file_extension = os.path.splitext(original_filename)
@@ -181,7 +181,7 @@ def get_transcript_from_video(video_buffer, original_filename):
             temp_file_path = temp_file.name
 
         # Print debug information about the temporary file
-        print(f"Temporary file path: {temp_file_path}")
+        # print(f"Temporary file path: {temp_file_path}")
 
         # Upload the video using the file path
         video = genai.upload_file(path=temp_file_path)
@@ -230,10 +230,11 @@ def upload_video():
     # Print the first 1000 bytes of the video buffer (or less if the buffer is smaller)
     video_buffer.seek(0)  # Ensure we are at the beginning of the buffer
     preview_data = video_buffer.read(1000)
-    print(f"Video buffer preview: {preview_data[:100]}...")  # Print the first 100 bytes of the preview data
+    # print(f"Video buffer preview: {preview_data[:100]}...")  # Print the first 100 bytes of the preview data
 
     try:
         transcript = get_transcript_from_video(video_buffer, file.filename)
+        print("transcription successfully")
         return jsonify({'transcript': transcript})
     except Exception as e:
         logging.error(f"An error occurred during transcript extraction: {e}")
