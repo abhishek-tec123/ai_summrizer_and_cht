@@ -19,16 +19,18 @@ if not api_key:
     exit(1)
 
 # Import and register blueprints
-from document_routes import document_bp
+from doc_summrz_routes import document_bp
 from audio_routes import audio_bp
 from video_routes import video_bp
 from doc_cht import document_chat_bp
+from ai_chat_with_m import ai_chat_bp
 
 app.register_blueprint(document_bp, url_prefix='/document-for-summary')
 app.register_blueprint(audio_bp, url_prefix='/audio')
 app.register_blueprint(video_bp, url_prefix='/video')
 # app.register_blueprint(document_chat_bp, url_prefix='/document-chat')
 app.register_blueprint(document_chat_bp, url_prefix='/document_chat')
+app.register_blueprint(ai_chat_bp, url_prefix='/ai')
 
 @app.route('/', methods=['GET'])
 def home():
