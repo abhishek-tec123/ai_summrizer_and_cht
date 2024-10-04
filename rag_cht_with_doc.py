@@ -386,14 +386,15 @@ qa_with_sources_chain = RetrievalQA.from_chain_type(
 )
 
 # Measure the start time for query response
-start_time_query = time.time()
 
 # Query the retrieval system
-response = qa_with_sources_chain.invoke({"query": "what is python"})
+input = input('enter query>>> ')
+start_time_query = time.time()
+response = qa_with_sources_chain.invoke({"query": input})
 print(response['result'])
+end_time_query = time.time()
 
 # Measure the end time for query response
-end_time_query = time.time()
 print(f"Query response time: {end_time_query - start_time_query:.2f} seconds")
 
 

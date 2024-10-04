@@ -312,7 +312,7 @@
 
 
 # //////////////////////////////////////////////////
-# with rag fast response 
+# with ThreadPoolExecutor rag fast response 
 # //////////////////////////////////////////////////
 
 from flask import Blueprint, request, jsonify
