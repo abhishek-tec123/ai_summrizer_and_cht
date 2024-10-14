@@ -1,43 +1,43 @@
-# Flask
-# requests
-# google-api-core
-# google-auth
-# google-auth-oauthlib
-# google-auth-httplib2
-# google-generativeai
-# python-dotenv
-# PyPDF2
-# python-docx
-# pymysql
-# PyJWT
-# scrypt
-# langchain
-# cryptography
-# langchain-community
-# langchain-google-genai
-# faiss-cpu
-# Flask-Cors
+Flask
+requests
+google-api-core
+google-auth
+google-auth-oauthlib
+google-auth-httplib2
+google-generativeai
+python-dotenv
+PyPDF2
+python-docx
+pymysql
+PyJWT
+scrypt
+langchain
+cryptography
+langchain-community
+langchain-google-genai
+faiss-cpu
+Flask-Cors
 
 
 
 
 
-Flask==3.0.3
-requests==2.32.3
-google-api-core==2.19.1
-google-auth==2.32.0
-google-auth-oauthlib==1.2.1
-google-auth-httplib2==0.2.0
-google-generativeai==0.7.2
-python-dotenv==1.0.1
-PyPDF2==3.0.1
-python-docx==1.1.2
-PyMySQL==1.1.1
-PyJWT==2.8.0
-scrypt==0.8.24
-langchain==0.2.11
-cryptography==43.0.0
-langchain-community==0.2.10
-langchain-google-genai==1.0.8
-faiss-cpu==1.8.0.post1
-Flask-Cors==4.0.1
+# Flask==3.0.3
+# requests==2.32.3
+# google-api-core==2.19.1
+# google-auth==2.32.0
+# google-auth-oauthlib==1.2.1
+# google-auth-httplib2==0.2.0
+# google-generativeai==0.7.2
+# python-dotenv==1.0.1
+# PyPDF2==3.0.1
+# python-docx==1.1.2
+# PyMySQL==1.1.1
+# PyJWT==2.8.0
+# scrypt==0.8.24
+# langchain==0.2.11
+# cryptography==43.0.0
+# langchain-community==0.2.10
+# langchain-google-genai==1.0.8
+# faiss-cpu==1.8.0.post1
+# Flask-Cors==4.0.1
