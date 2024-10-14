@@ -282,6 +282,7 @@
 # ------------------------------------------------------------------------------------------------
 #   chat with pdf and text doc speedup response faiss vector databas
 # ------------------------------------------------------------------------------------------------
+# this code is based on documents chat
 
 import os
 import time
