@@ -12,7 +12,7 @@ PyMySQL==1.1.1
 PyJWT==2.8.0
 scrypt==0.8.24
 langchain==0.2.11
-cryptography==43.0.0
+cryptography==44.0.1
 langchain-community==0.2.10
 langchain-google-genai==1.0.8
 faiss-cpu==1.8.0.post1
