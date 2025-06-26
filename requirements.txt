@@ -16,4 +16,6 @@ cryptography==43.0.0
 langchain-community==0.2.10
 langchain-google-genai==1.0.8
 faiss-cpu==1.8.0.post1
-Flask-Cors==4.0.1
+Flask-Cors==6.0.0
+protobuf>=4.25.8 # not directly required, pinned by Snyk to avoid a vulnerability
+urllib3>=2.5.0 # not directly required, pinned by Snyk to avoid a vulnerability
