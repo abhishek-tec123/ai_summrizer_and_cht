@@ -17,3 +17,4 @@ langchain-community==0.2.10
 langchain-google-genai==1.0.8
 faiss-cpu==1.8.0.post1
 Flask-Cors==4.0.1
+uvicorn
