@@ -97,9 +97,7 @@ ipython_config.py
 env/
 venv/
 ENV/
-env.bak/
-venv.bak/
-.ai_summrizer_chatENV
+/Users/abhishek/Desktop/ai_summrizer_and_cht/.ai_summrizer_chatENV
 # FAISS indices
 faiss_index/
 *.faiss
