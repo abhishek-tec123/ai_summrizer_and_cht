@@ -86,6 +86,13 @@ ipython_config.py
 
 # Environments
 .env
+.env.local
+.env.development
+.env.production
+.env.staging
+.env.test
+.env.*.local
+.envrc
 .venv
 env/
 venv/
@@ -105,13 +112,7 @@ __pycache__/
 
 # Data directories (uncomment if you don't want to track data)
 data/
-# datasets/
-# raw_data/
-# processed_data/
 
-# Logs
-*.log
-logs/
 
 # Temporary files
 *.tmp
@@ -127,24 +128,3 @@ tmp/
 .Trashes
 ehthumbs.db
 Thumbs.db
-
-# IDE files
-.vscode/
-.idea/
-*.swp
-*.swo
-*~
-
-# API keys and secrets
-.env
-.env.local
-.env.production
-.env.staging
-secrets.json
-config.json
-
-# Large files that shouldn't be in git
-*.zip
-*.tar.gz
-*.rar
-*.7z
