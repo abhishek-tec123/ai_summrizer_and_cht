@@ -18,3 +18,5 @@ langchain-google-genai==1.0.8
 faiss-cpu==1.8.0.post1
 Flask-Cors==4.0.1
 uvicorn
+h11>=0.16.0 # not directly required, pinned by Snyk to avoid a vulnerability
+zipp>=3.19.1 # not directly required, pinned by Snyk to avoid a vulnerability
